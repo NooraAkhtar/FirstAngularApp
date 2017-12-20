@@ -1,0 +1,199 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <span>Product - {{ pageTitle }} </span> 
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal" novalidate (ngSubmit)="save()" [formGroup]="productFormGroup">
+      <fieldset>
+        <div class="form-group" [ngClass]="{'has-error': nameErrorMessage }">
+          <label class="col-md-2 control-label" for="productNameId">Name</label>
+
+          <div class="col-md-8">
+            <input class="form-control" type="text" id="productNameId" placeholder="Name (required)" name="productName" formControlName="name"
+            />
+            <span class="help-block" *ngIf="nameErrorMessage">
+              {{nameErrorMessage}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': (productFormGroup.get('code').touched || productFormGroup.get('code').dirty) && productFormGroup.get('code').errors}">
+          <label class="col-md-2 control-label" for="productCode">Code</label>
+
+          <div class="col-md-8">
+            <input class="form-control" type="text" id="productCode" placeholder="Code (required)" name="code" formControlName="code"
+            />
+            <span class="help-block" *ngIf="(productFormGroup.get('code').touched || productFormGroup.get('code').dirty) && productFormGroup.get('code').errors">
+              <span *ngIf="productFormGroup.get('code').errors.required">
+                Please enter product code!
+              </span>
+              <span *ngIf="productFormGroup.get('code').errors.minLength < 3">
+                Please enter product code longer than 3!
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': (productFormGroup.get('price').touched || productFormGroup.get('price').dirty) && productFormGroup.get('price').errors}">
+          <label class="col-md-2 control-label" for="productPrice">Price</label>
+
+          <div class="col-md-8">
+            <input class="form-control" type="text" id="productPrice" placeholder="price (required)" name="price" formControlName="price"
+            />
+            <span class="help-block" *ngIf="(productFormGroup.get('price').touched || productFormGroup.get('price').dirty) && productFormGroup.get('price').errors">
+              <span *ngIf="productFormGroup.get('price').errors.required">
+                Please enter product price!
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-2 control-label" for="productAvailable">Available</label>
+
+          <div class="col-md-8">
+            <input type="checkbox" id="productAvailable" name="available" formControlName="available" />
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': (productFormGroup.get('rating').touched || productFormGroup.get('rating').dirty) && productFormGroup.get('rating').errors}">
+          <label class="col-md-2 control-label" for="productStarRating">Rating</label>
+
+          <div class="col-md-8">
+            <input class="form-control" type="number" id="productStarRating" placeholder="StarRating (required)" name="starRating" formControlName="rating"
+            />
+            <span class="help-block" *ngIf="(productFormGroup.get('rating').touched || productFormGroup.get('rating').dirty) && productFormGroup.get('rating').errors">
+              <span *ngIf="productFormGroup.get('rating').errors.range">
+                Please enter product rating between 1 to 5
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': (productFormGroup.get('imageUrl').touched || productFormGroup.get('imageUrl').dirty) && productFormGroup.get('imageUrl').errors}">
+          <label class="col-md-2 control-label" for="productImageUrl">Image Url</label>
+
+          <div class="col-md-8">
+            <input class="form-control" type="text" id="productImageUrl" placeholder="Image Url (required)" name="imageUrl" formControlName="imageUrl"
+            />
+            <span class="help-block" *ngIf="(productFormGroup.get('imageUrl').touched || productFormGroup.get('imageUrl').dirty) && productFormGroup.get('imageUrl').errors">
+              <span *ngIf="productFormGroup.get('imageUrl').errors">
+                Please enter product image Url!
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-offset-1 col-md-8 checkbox">
+            <label>
+              <input id="sendCatalogId" type="checkbox" formControlName="sendCatalog" /> Send your catalog
+            </label>
+          </div>
+        </div>
+
+        <div *ngIf="productFormGroup.get('sendCatalog').value">
+          <div class="form-group">
+            <div class="col-md-4 col-md-offset-2">
+              <span>
+                <button class="btn btn-primary" type="button"
+                        (click)="addAddress()"
+                        [disabled]="!addresses.valid">
+                  Add Another Address
+                </button>
+              </span>
+            </div>
+          </div>
+
+         
+          <div formArrayName="addresses" 
+               *ngFor="let address of addresses.controls; let i = index">
+            <div [formGroupName]="i">
+                <div class="form-group">
+                  <label class="col-md-2 control-label">Address Type</label>
+                  <div class="col-md-8">
+                    <label class="radio-inline">
+                      <input type="radio" id="addressType1Id" value="home" formControlName="addressType">Home
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" id="addressType1Id" value="work" formControlName="addressType">Work
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" id="addressType1Id" value="other" formControlName="addressType">Other
+                    </label>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <div>
+                    <div>
+                      <label class="col-md-2 control-label"
+                             attr.for="{{'street1Id' + i}}">Street Address 1</label>
+                      <input type="text" id="{{'street1Id' + i}}"
+                             formControlName="street1" />
+                    </div>
+                    <div class="error" *ngIf="address.get('street1').touched && address.get('street1').hasError('required')">
+                      <span>Please enter street address 1</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <div>
+                    <div>
+                      <label class="col-md-2 control-label" attr.for="{{'street2Id' + i}}">Street Address 2</label>
+                      <input type="text" id="{{'street2Id' + i}}"
+                             formControlName="street2" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <div>
+                    <div>
+                      <label class="col-md-2 control-label" for="city">City</label>
+                      <input type="text" formControlName='city' />
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <div>
+                    <div>
+                      <label class="col-md-2 control-label" for="state">State</label>
+                      <input type="text" formControlName='state' />
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <div>
+                    <div>
+                      <label class="col-md-2 control-label" for="zip">Zip</label>
+                      <input type="text" formControlName='zip' />
+                    </div>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+
+        <div>
+          <button class="btn btn-primary" type="submit" [disabled]="!productFormGroup.valid" (click)="save">Save</button>
+        </div>
+<div class="footer">
+  <span>{{ errorMessage | json}}</span>
+</div>
+
+        <div>
+          <br/> Dirty: {{productFormGroup.dirty}}
+          <br/> Touched: {{productFormGroup.touched}}
+          <br/> valid: {{productFormGroup.valid}}
+          <br/> Value: {{productFormGroup.value | json}}
+          <br/>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+</div>

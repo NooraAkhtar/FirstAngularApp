@@ -1,0 +1,44 @@
+<div class="panel panel-primary"
+  *ngIf='selectedProduct'>
+  <div class="panel-heading">
+    {{pageTitle}}
+  </div>
+  <div class="container panel-info">
+    <table>
+      <tr>
+        <td colspan="2">
+          <img *ngIf='showImage' 
+            [src]='selectedProduct.imageUrl' [title]='selectedProduct.name | uppercase'
+            [style.width.px]='selectedProduct.imageWidth' />
+         </td>
+        </tr>
+        <tr>
+          <td>Product Name: </td>
+            <td>{{selectedProduct.name}}</td>
+        </tr>
+        <tr>
+          <td>Product Code: </td>
+          <td>{{selectedProduct.code | lowercase | convertToSpaces: '-'}}</td>
+        </tr>
+        <tr>
+          <td>Available</td>
+          <td>{{selectedProduct.available? "Yes": "No"}}</td>
+        </tr>
+        <tr>
+          <td>Price: </td>
+          <td>{{selectedProduct.price | currency | lowercase}}</td>
+        </tr>
+        <tr>
+          <td>Rating: </td>
+          <td><app-star [rating] = 'selectedProduct.starRating'
+              (ratingClicked)='onRatingClicked($event)'></app-star>
+          </td>
+        </tr>
+    </table>
+  </div>
+  <div class="panel panel-footer">
+    <a class="btn btn-default" (click)="onBack()">
+      <i class="glyphicon glyphicon-chevron-left"></i> Back
+    </a>
+  </div>
+</div>
