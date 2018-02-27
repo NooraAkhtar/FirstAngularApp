@@ -84,11 +84,12 @@ export class AddProductComponent implements OnInit {
   }
 
   getProductById(id: number): void{
-    debugger;
+    if(id>0){
     this.productService.getProductById(id)
     .subscribe( (product: product) => this.onProductRetrieved(product)
     , (error: any) => this.errorMessage = <any>error);
   }
+}
 
   onProductRetrieved(product: product): void{
     debugger;

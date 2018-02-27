@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <span>{{ pageTitle }} </span> 
+    <span>{{ pageTitle }} </span>
   </div>
   <div class="panel-body">
     <form class="form-horizontal" novalidate (ngSubmit)="save()" [formGroup]="productFormGroup">
@@ -96,102 +96,97 @@
           <div class="form-group">
             <div class="col-md-4 col-md-offset-2">
               <span>
-                <button class="btn btn-primary" type="button"
-                        (click)="addAddress()"
-                        [disabled]="!addresses.valid">
+                <button class="btn btn-primary" type="button" (click)="addAddress()" [disabled]="!addresses.valid">
                   Add Another Address
                 </button>
               </span>
             </div>
           </div>
 
-         
-          <div formArrayName="addresses" 
-               *ngFor="let address of addresses.controls; let i = index">
+
+          <div formArrayName="addresses" *ngFor="let address of addresses.controls; let i = index">
             <div [formGroupName]="i">
-                <div class="form-group">
-                  <label class="col-md-2 control-label">Address Type</label>
-                  <div class="col-md-8">
-                    <label class="radio-inline">
-                      <input type="radio" id="addressType1Id" value="home" formControlName="addressType">Home
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" id="addressType1Id" value="work" formControlName="addressType">Work
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" id="addressType1Id" value="other" formControlName="addressType">Other
-                    </label>
-                  </div>
+              <div class="form-group">
+                <label class="col-md-2 control-label">Address Type</label>
+                <div class="col-md-8">
+                  <label class="radio-inline">
+                    <input type="radio" id="addressType1Id" value="home" formControlName="addressType">Home
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" id="addressType1Id" value="work" formControlName="addressType">Work
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" id="addressType1Id" value="other" formControlName="addressType">Other
+                  </label>
                 </div>
-                
-                <div class="form-group">
+              </div>
+
+              <div class="form-group">
+                <div>
                   <div>
-                    <div>
-                      <label class="col-md-2 control-label"
-                             attr.for="{{'street1Id' + i}}">Street Address 1</label>
-                      <input type="text" id="{{'street1Id' + i}}"
-                             formControlName="street1" />
-                    </div>
-                    <div class="error" *ngIf="address.get('street1').touched && address.get('street1').hasError('required')">
-                      <span>Please enter street address 1</span>
-                    </div>
+                    <label class="col-md-2 control-label" attr.for="{{'street1Id' + i}}">Street Address 1</label>
+                    <input type="text" id="{{'street1Id' + i}}" formControlName="street1" />
+                  </div>
+                  <div class="error" *ngIf="address.get('street1').touched && address.get('street1').hasError('required')">
+                    <span>Please enter street address 1</span>
                   </div>
                 </div>
-                
-                <div class="form-group">
+              </div>
+
+              <div class="form-group">
+                <div>
                   <div>
-                    <div>
-                      <label class="col-md-2 control-label" attr.for="{{'street2Id' + i}}">Street Address 2</label>
-                      <input type="text" id="{{'street2Id' + i}}"
-                             formControlName="street2" />
-                    </div>
+                    <label class="col-md-2 control-label" attr.for="{{'street2Id' + i}}">Street Address 2</label>
+                    <input type="text" id="{{'street2Id' + i}}" formControlName="street2" />
                   </div>
                 </div>
-                
-                <div class="form-group">
+              </div>
+
+              <div class="form-group">
+                <div>
                   <div>
-                    <div>
-                      <label class="col-md-2 control-label" for="city">City</label>
-                      <input type="text" formControlName='city' />
-                    </div>
+                    <label class="col-md-2 control-label" for="city">City</label>
+                    <input type="text" formControlName='city' />
                   </div>
                 </div>
-                
-                <div class="form-group">
+              </div>
+
+              <div class="form-group">
+                <div>
                   <div>
-                    <div>
-                      <label class="col-md-2 control-label" for="state">State</label>
-                      <input type="text" formControlName='state' />
-                    </div>
+                    <label class="col-md-2 control-label" for="state">State</label>
+                    <input type="text" formControlName='state' />
                   </div>
                 </div>
-                
-                <div class="form-group">
+              </div>
+
+              <div class="form-group">
+                <div>
                   <div>
-                    <div>
-                      <label class="col-md-2 control-label" for="zip">Zip</label>
-                      <input type="text" formControlName='zip' />
-                    </div>
+                    <label class="col-md-2 control-label" for="zip">Zip</label>
+                    <input type="text" formControlName='zip' />
                   </div>
                 </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
         <div>
-          <button class="btn btn-primary" type="submit" [disabled]="!productFormGroup.valid" (click)="save">Save</button>
+          <button class="btn btn-primary" type="submit" 
+          [disabled]="!productFormGroup.valid" (click)="save()">Save</button>
         </div>
-<div class="footer">
-  <span>{{ errorMessage | json}}</span>
-</div>
+        <div class="footer">
+          <span>{{ errorMessage | json}}</span>
+        </div>
 
-        <div>
+        <!-- <div>
           <br/> Dirty: {{productFormGroup.dirty}}
           <br/> Touched: {{productFormGroup.touched}}
           <br/> valid: {{productFormGroup.valid}}
           <br/> Value: {{productFormGroup.value | json}}
           <br/>
-        </div>
+        </div> -->
 
       </fieldset>
     </form>

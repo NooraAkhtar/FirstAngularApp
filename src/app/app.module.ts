@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ProductGuardService } from './products/product-guard.service';
 import { AddProductComponent } from './products/add-product.component';
+import { ItemTemplateComponent } from './drop-down-template/item-template/item-template.component';
+import { DropDownComponent } from './drop-down-template/drop-down/drop-down.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { AddProductComponent } from './products/add-product.component';
     StarComponent,
     ProductDetailComponent,
     WelcomeComponent,
-    AddProductComponent
+    AddProductComponent,
+    ItemTemplateComponent,
+    DropDownComponent
   ],
   imports: [
     BrowserModule,
